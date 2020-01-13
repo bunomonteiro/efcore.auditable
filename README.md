@@ -1,4 +1,4 @@
-An Entity Framework Auditable library based on Gérald Barré example: 
+An Entity Framework library to audit tables based on Gérald Barré example: 
 [Entity Framework Core: History / Audit table](https://www.meziantou.net/entity-framework-core-history-audit-table.htm)
 
 ## How To
