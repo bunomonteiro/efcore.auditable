@@ -13,7 +13,6 @@ v. 1.0.0 (01/2020)
 - ☑ Entity Framework Core 3.1
 
 v. x
-- ☐ Entity Framework
 - ☐ Entity Framework Core 2.x
 - ☐ Audit table for each Entity
 
