@@ -14,7 +14,7 @@ v. 1.0.0 (01/2020)
 
 v. x
 - ☐ Entity Framework Core 2.x
-- ☐ Audit table for each Entity
+- ☐ Audit table for each Entity individually
 
 ## License
 This source code is issued under [MIT license][MIT], a permissive free license, which means you can modify it as you please, and incorporate it into your own commercial or non-commercial software.
