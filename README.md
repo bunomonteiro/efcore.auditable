@@ -4,7 +4,7 @@ An Entity Framework library to audit tables based on Gérald Barré example:
 ## How To
 Check out the [Wiki page](https://github.com/bunomonteiro/efcore.auditable/wiki/How-To)
 
-### TL;DR;
+### Nuget
     Install-Package Efcore31.Auditable
 
 ## Todo
