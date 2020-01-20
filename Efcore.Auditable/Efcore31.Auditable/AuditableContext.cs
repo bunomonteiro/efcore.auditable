@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,22 +16,12 @@ namespace Efcore31.Auditable
     /// </summary>
     public class AuditableContext : DbContext
     {
-        private List<(System.Type type, string name)> _auditMetadata;
+        internal static ConcurrentDictionary<Type, List<(Type type, string name)>> AuditedTablesMetadataCache = new ConcurrentDictionary<Type, List<(Type type, string name)>>();
+
         public DbSet<Audit> GeneralAudits { get; set; }
 
-        public AuditableContext() : base()
-        {
-            CacheAuditMetadata();
-        }
-        public AuditableContext(DbContextOptions options) : base(options) 
-        {
-            CacheAuditMetadata();
-        }
-
-        private void CacheAuditMetadata()
-        {
-            _auditMetadata = _auditMetadata ?? this.GetAllAuditedTablesMetadata();
-        }
+        public AuditableContext() : base() { }
+        public AuditableContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -61,7 +53,8 @@ namespace Efcore31.Auditable
 
             foreach(EntityEntry entry in ChangeTracker.Entries())
             {
-                if(!_auditMetadata.Any(t => t.type == entry.Entity.GetType()) ||
+                if(!AuditedTablesMetadataCache.ContainsKey(GetType()) ||
+                    !AuditedTablesMetadataCache[GetType()].Any(t => t.type == entry.Entity.GetType()) ||
                     entry.Entity is Audit ||
                     entry.State == EntityState.Detached ||
                     entry.State == EntityState.Unchanged

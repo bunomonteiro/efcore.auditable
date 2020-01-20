@@ -12,10 +12,21 @@ namespace Efcore31.Auditable
     {
         public static void InitializeAudit<T>(this T context, Func<DbContextOptionsBuilder, DbContextOptionsBuilder> builder) where T : DbContext
         {
+            InitializeAuditedTablesMetadataCache(context);
+
             using(AuditableContext auditContext = new AuditableContext(builder(new DbContextOptionsBuilder()).Options))
             {
                 IRelationalDatabaseCreator creator = auditContext.GetService<IRelationalDatabaseCreator>();
                 creator.CreateTables();
+            }
+        }
+
+        private static void InitializeAuditedTablesMetadataCache<T>(T context) where T : DbContext
+        {
+            Type contextType = context.GetType();
+            if(!AuditableContext.AuditedTablesMetadataCache.ContainsKey(contextType))
+            {
+                AuditableContext.AuditedTablesMetadataCache.TryAdd(contextType, context.GetAllAuditedTablesMetadata());
             }
         }
 

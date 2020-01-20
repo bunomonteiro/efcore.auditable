@@ -7,6 +7,9 @@
     <Product>Efcore31.Auditable</Product>
     <Copyright>Bruno Monteiro</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/bunomonteiro/efcore.auditable</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bunomonteiro/efcore.auditable</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
